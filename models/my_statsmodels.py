@@ -214,9 +214,18 @@ class AR1():
         self._rng = np.random.default_rng(seed)
 
 
-def calc_IC_metrics(regression, normalize=True, verbose=True):
-    sigma_hat = np.sqrt(1 / (regression._n - ols._k)
+def calc_log_likelihood(regression, normalize=True, verbose=True):
+    sigma_hat = np.sqrt(1 / (regression._n)
                         * np.dot(regression.e, regression.e))
+    log_likelihood = sum(np.log(stats.norm.pdf(regression.e, loc=0.0,
+                                               scale=sigma_hat)))
+    return log_likelihood
+
+
+def calc_IC_metrics(regression, normalize=True, verbose=True):
+    sigma_hat = np.sqrt(1 / (regression._n)
+                        * np.dot(regression.e, regression.e))
+    mean_err = np.mean(regression.e)
     log_likelihood = sum(np.log(stats.norm.pdf(regression.e, loc=0.0,
                                                scale=sigma_hat)))
 
