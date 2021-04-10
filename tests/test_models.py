@@ -26,3 +26,6 @@ def test_regular_ols():
     X = np.concatenate([np.ones((x.shape[0], 1)), x], axis=1)
     y_pred = ols.predict(X)
     assert np.allclose(ols.predict(X), sm_results.predict())
+
+def test_robust_ols():
+    assert False
