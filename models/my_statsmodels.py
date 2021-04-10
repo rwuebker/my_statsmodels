@@ -45,6 +45,8 @@ class OLS():
                                        atol=1e-12).all()
 
     def predict(self, X):
+        if X.shape[-1] != self.beta.shape[0]:
+            raise Exception('Shape mismatch. X.shape: {}. self.beta.shape: {}'.format(X.shape, self.beta.shape))
         return np.matmul(X, self.beta)
 
     def t_test(self, beta_null, verbose=True):
